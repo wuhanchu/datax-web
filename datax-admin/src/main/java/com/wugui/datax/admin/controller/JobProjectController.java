@@ -51,7 +51,7 @@ public class JobProjectController extends BaseController {
     @GetMapping("/list")
     public R<List<JobProject>> selectList() {
         QueryWrapper<JobProject> query = new QueryWrapper();
-        query.eq("flag", true);
+        query.eq("flag", 1);
         return success(jobProjectService.list(query));
     }
 

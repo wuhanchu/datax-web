@@ -35,7 +35,7 @@
             </if>
         </trim>
         ORDER BY username ASC
-        LIMIT #{offset}, #{pagesize}
+        LIMIT #{pagesize} offset #{offset}
     </select>
 
     <select id="findAll" parameterType="java.util.HashMap" resultMap="JobUser">

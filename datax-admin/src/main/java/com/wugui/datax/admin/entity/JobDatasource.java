@@ -82,7 +82,7 @@ public class JobDatasource extends Model<JobDatasource> {
      */
     @TableLogic
     @ApiModelProperty(value = "状态：0删除 1启用 2禁用")
-    private Integer status;
+    private Boolean status;
 
     /**
      * 创建人
