@@ -267,15 +267,6 @@ Copyright (c) 2020 WeiYe
 # 提交代码
 [参与贡献](https://github.com/WeiYe-Jing/datax-web/issues/190)
 
-
-# Contact us
-
-### 个人微信
-![](https://datax-web.oss-cn-hangzhou.aliyuncs.com/doc/WechatIMG2.jpeg?x-oss-process=image/resize,w_230,h_230)
-
-### QQ交流群
-![](https://datax-web.oss-cn-hangzhou.aliyuncs.com/doc/qrcode3.jpeg?x-oss-process=image/resize,w_250,h_300)
-
-
-
-
+# 编译
+docker build -t wuhanchu/datax-web:2.1.2 .
+docker push wuhanchu/datax-web:2.1.2

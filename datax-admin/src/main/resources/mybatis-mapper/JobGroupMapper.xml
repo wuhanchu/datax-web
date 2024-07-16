@@ -30,7 +30,7 @@
 
     <select id="find" resultMap="JobGroup">
         select
-        id,app_name,title,order,address_type,address_list
+        id,app_name,title,"order",address_type,address_list
         from job_group
         <where>
             <if test="appName != null and appName != ''">
