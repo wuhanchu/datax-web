@@ -16,7 +16,15 @@
         <module>datax-rpc</module>
         <module>datax-assembly</module>
     </modules>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.4.RELEASE</version> <!-- 使用与 Spring Boot 2.1.4.RELEASE 兼容的版本 -->
+            </plugin>
+        </plugins>
+    </build>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

@@ -24,8 +24,6 @@ DataX Web是在DataX之上开发的分布式数据同步工具，提供简单易
 - Environment: MacOS, Windows,Linux
 - Database: Mysql5.7
 
-
-
 # Features
 
 - 1、通过Web构建DataX Json；
@@ -73,8 +71,8 @@ DataX Web是在DataX之上开发的分布式数据同步工具，提供简单易
 # Quick Start：
 
 ##### 请点击：[Quick Start](https://github.com/WeiYe-Jing/datax-web/blob/master/userGuid.md)
-##### Linux：[一键部署](https://github.com/WeiYe-Jing/datax-web/blob/master/doc/datax-web/datax-web-deploy.md)
 
+##### Linux：[一键部署](https://github.com/WeiYe-Jing/datax-web/blob/master/doc/datax-web/datax-web-deploy.md)
 
 # Introduction：
 
@@ -82,7 +80,8 @@ DataX Web是在DataX之上开发的分布式数据同步工具，提供简单易
 
 ![](https://datax-web.oss-cn-hangzhou.aliyuncs.com/doc/executor.png)
 
-- 1、"调度中心OnLine:"右侧显示在线的"调度中心"列表, 任务执行结束后, 将会以failover的模式进行回调调度中心通知执行结果, 避免回调的单点风险;
+- 1、"调度中心OnLine:"右侧显示在线的"调度中心"列表, 任务执行结束后, 将会以failover的模式进行回调调度中心通知执行结果,
+  避免回调的单点风险;
 - 2、"执行器列表" 中显示在线的执行器列表, 可通过"OnLine 机器"查看对应执行器的集群机器;
 
 #### 执行器属性说明
@@ -112,16 +111,14 @@ DataX Web是在DataX之上开发的分布式数据同步工具，提供简单易
 
 第四步使用
 
-
-
 ### 4. 构建JSON脚本
 
-- 1.步骤一，步骤二，选择第二步中创建的数据源，JSON构建目前支持的数据源有hive,mysql,oracle,postgresql,sqlserver,hbase,mongodb,clickhouse 其它数据源的JSON构建正在开发中,暂时需要手动编写。
+- 1.步骤一，步骤二，选择第二步中创建的数据源，JSON构建目前支持的数据源有hive,mysql,oracle,postgresql,sqlserver,hbase,mongodb,clickhouse
+  其它数据源的JSON构建正在开发中,暂时需要手动编写。
 
 ![](https://datax-web.oss-cn-hangzhou.aliyuncs.com/doc/build.png)
 
 - 2.字段映射
-
 
 ![](https://datax-web.oss-cn-hangzhou.aliyuncs.com/doc/mapping.png)
 
@@ -147,7 +144,8 @@ DataX Web是在DataX之上开发的分布式数据同步工具，提供简单易
     - 丢弃后续调度：调度请求进入单机执行器后，发现执行器存在运行的调度任务，本次请求将会被丢弃并标记为失败；
     - 覆盖之前调度：调度请求进入单机执行器后，发现执行器存在运行的调度任务，将会终止运行中的调度任务并清空队列，然后运行本地调度任务；
 - 增量增新建议将阻塞策略设置为丢弃后续调度或者单机串行
-    - 设置单机串行时应该注意合理设置重试次数(失败重试的次数*每次执行时间<任务的调度周期)，重试的次数如果设置的过多会导致数据重复，例如任务30秒执行一次，每次执行时间需要20秒，设置重试三次，如果任务失败了，第一个重试的时间段为1577755680-1577756680，重试任务没结束，新任务又开启，那新任务的时间段会是1577755680-1577758680
+    - 设置单机串行时应该注意合理设置重试次数(失败重试的次数*每次执行时间<任务的调度周期)
+      ，重试的次数如果设置的过多会导致数据重复，例如任务30秒执行一次，每次执行时间需要20秒，设置重试三次，如果任务失败了，第一个重试的时间段为1577755680-1577756680，重试任务没结束，新任务又开启，那新任务的时间段会是1577755680-1577758680
 
 - [增量参数设置](https://github.com/WeiYe-Jing/datax-web/blob/master/doc/datax-web/increment-desc.md)
 - [分区参数设置](https://github.com/WeiYe-Jing/datax-web/blob/master/doc/datax-web/partition-dynamic-param.md)
@@ -168,7 +166,6 @@ DataX Web是在DataX之上开发的分布式数据同步工具，提供简单易
 ### 10. admin可以创建用户，编辑用户信息
 
 ![](https://datax-web.oss-cn-hangzhou.aliyuncs.com/doc/user.png)
-
 
 # UI
 
@@ -223,9 +220,9 @@ Copyright (c) 2020 WeiYe
 7. 脚本类型任务增加停止功能；
 8. rdbms json构建增加postSql，并支持构建多个preSql，postSql；
 9. 合并datax-registry模块到datax-rpc中；
-10.数据源信息加密算法修改及代码优化；
-11.时间增量同步支持更多时间格式；
-12.日志页面增加DataX执行结果统计数据；
+   10.数据源信息加密算法修改及代码优化；
+   11.时间增量同步支持更多时间格式；
+   12.日志页面增加DataX执行结果统计数据；
 
 ### 升级：
 
@@ -237,6 +234,7 @@ Copyright (c) 2020 WeiYe
 6. HIVE JSON构建增加头尾选项参数;
 
 ### 备注：
+
 2.1.1版本不建议升级，数据源信息加密方式变更会导致之前已加密的数据源解密失败，任务运行失败。
 如果需要升级请重建数据源，任务。
 
@@ -265,8 +263,14 @@ Copyright (c) 2020 WeiYe
 1. 任务日志过大时，查看日志报错，请求超时；
 
 # 提交代码
+
 [参与贡献](https://github.com/WeiYe-Jing/datax-web/issues/190)
 
 # 编译
+
+maven lifecycle 执行 package
+
+```
 docker build -t wuhanchu/datax-web:2.1.2 .
 docker push wuhanchu/datax-web:2.1.2
+```

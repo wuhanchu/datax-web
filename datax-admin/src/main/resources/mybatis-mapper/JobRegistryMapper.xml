@@ -48,10 +48,10 @@
 
     <update id="registryUpdate">
         UPDATE job_registry
-        SET update_time = #{updateTime},t
-        	cpu_usage=#{cpuUsage},
-        	memory_usage=#{memoryUsage},
-        	load_average=#{loadAverage}
+        SET update_time = #{updateTime},
+            cpu_usage=#{cpuUsage},
+            memory_usage=#{memoryUsage},
+            load_average=#{loadAverage}
         WHERE registry_group = #{registryGroup}
           AND registry_key = #{registryKey}
           AND registry_value = #{registryValue}
