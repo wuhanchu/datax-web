@@ -16,8 +16,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 import java.io.*;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.Semaphore;
 
 import static com.wugui.datax.executor.service.command.BuildCommand.buildDataXExecutorCmd;
 import static com.wugui.datax.executor.service.jobhandler.DataXConstant.DEFAULT_JSON;
@@ -39,10 +42,43 @@ public class ExecutorJobHandler extends IJobHandler {
     @Value("${datax.pypath}")
     private String dataXPyPath;
 
+    // 控制同时运行的DataX任务数，Semaphore所有JobThread共享
+    private static Semaphore dataxSemaphore;
+    // 缓存最大并发数，供监控API读取
+    private static volatile int maxPermits;
+
+    @Value("${datax.executor.maxConcurrent:10}")
+    private int maxConcurrent;
+
+    // 初始化信号量，启动后固定不变。若要调整需重启pod
+    @PostConstruct
+    public void init() {
+        maxPermits = maxConcurrent;
+        dataxSemaphore = new Semaphore(maxConcurrent);
+    }
+
+    // 供ExecutorController查询当前并发限制和可用许可
+    public static int getMaxPermits() { return maxPermits; }
+    public static int getAvailablePermits() { return dataxSemaphore.availablePermits(); }
 
     @Override
     public ReturnT<String> execute(TriggerParam trigger) {
+        // 获取许可，超限的任务会在此阻塞排队
+        try {
+            dataxSemaphore.acquire();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return new ReturnT<>(IJobHandler.FAIL.getCode(), "job interrupted while waiting for slot");
+        }
+        try {
+            return doExecute(trigger);
+        } finally {
+            // 执行完毕释放许可，唤醒下一个等待的任务
+            dataxSemaphore.release();
+        }
+    }
 
+    private ReturnT<String> doExecute(TriggerParam trigger) {
         int exitValue = -1;
         Thread errThread = null;
         String tmpFilePath;
