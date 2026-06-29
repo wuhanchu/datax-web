@@ -51,8 +51,11 @@ public class ExecutorJobHandler extends IJobHandler {
     private int maxConcurrent;
 
     // 初始化信号量，启动后固定不变。若要调整需重启pod
+    // 幂等守卫：JobThread.run() 每个 jobId 启动时会重复调用 init()，
+    // 不加守卫会反复 new Semaphore()，导致旧许可释放进新对象，available 无限增长
     @PostConstruct
     public void init() {
+        if (dataxSemaphore != null) return;
         maxPermits = maxConcurrent;
         dataxSemaphore = new Semaphore(maxConcurrent);
     }
